@@ -40,7 +40,7 @@ class Products(models.Model):
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
     Description = models.TextField()
     date = models.DateField(auto_now=True)
-    image = models.CharField(max_length=100, null=True)
+    image = models.ImageField(upload_to="images", null=True)
     slug = models.SlugField(unique=True, db_index=True, null=True)
     tags = models.ManyToManyField(Tag)
     # tags = models.

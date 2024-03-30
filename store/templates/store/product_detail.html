@@ -19,7 +19,7 @@
         </div>
 
         <article>
-            <img src="{% static "store/images/"|add:product.image %}" alt="{{ product.product_name }} image">
+            <img src="{{ product.image.url }}" alt="{{ product.product_name }} image">
         </article>
 
     </section>
