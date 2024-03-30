@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+	Product lists
+{% endblock %}
+
+{% block css_files %}
+    <link rel="stylesheet" href="{% static "store/products.css" %}">
+    <link rel="stylesheet" href="{% static "store/all-products.css" %}">
+{% endblock %}
+
+{% block content %}
+    <section id="all-products">
+        <h2>All Products</h2>
+
+        <ul>
+            {% for product in all_products %}
+                {% include "store/includes/products.html" %}
+            {% endfor %}
+        </ul>
+
+
+    </section>
+
+{% endblock %}

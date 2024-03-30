@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Online Store{% endblock %}
+
+{% block css_files %}
+    <link rel="stylesheet" href="{% static "store/index.css" %}">
+    <link rel="stylesheet" href="{% static "store/products.css" %}">
+{% endblock %}
+
+{% block content %}
+    <section id="welcome">
+    <header>
+        <img src="{% static "store/images/welcome.jpg" %}" alt="welcome image">
+        <h2>ROZ STORE</h2>
+    </header>
+        <p>this is a good store, buy from this store</p>
+    </section>
+
+    <section id="latest-products">
+        <h2>Latest Products</h2>
+
+        <ul>
+            {% for product in last_6_products %}
+                {% include "store/includes/products.html"%}
+            {% endfor %}
+        </ul>
+    </section>
+
+    <section id="about">
+        <h2>What is this site</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores dolorum eos excepturi id inventore nobis numquam, officiis pariatur quasi qui recusandae, sequi sint sunt tempore unde. Consequuntur magni nulla sit.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error explicabo minus nobis odit quas? Accusamus ad aliquam asperiores at consectetur enim eum facilis nisi nostrum quaerat ratione sint, unde vero.</p>
+    </section>
+
+{% endblock %}

@@ -1,0 +1,25 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %} Online Store {% endblock %}</title>
+    <link rel="stylesheet" href="{% static "app.css" %}">
+    {% block css_files %}{% endblock %}
+</head>
+<body>
+    <section id="main-navigation">
+        <h1><a href="{% url "index" %}">Roz Store</a></h1>
+        
+        <nav>
+            <a href="{% url "all-products" %}">All Products</a>
+        </nav>
+    </section>
+
+
+    {% block content %}{% endblock %}
+    
+</body>
+</html>

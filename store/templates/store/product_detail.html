@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+    {{ product.product_name }}
+{% endblock %}
+
+{% block css_files %}
+    <link rel="stylesheet" href="{% static "store/product-detail.css" %}">
+{% endblock %}
+
+{% block content %}
+	<section id="summary">
+        <h2>{{ product.product_name }}</h2>
+        <div>
+            {% for tag in product_tags %}
+            	<span class="tag">{{ tag.caption }}</span>
+            {% endfor %}
+        </div>
+
+        <article>
+            <img src="{% static "store/images/"|add:product.image %}" alt="{{ product.product_name }} image">
+        </article>
+
+    </section>
+    <main>
+        {{ product.Description|linebreaks }}
+    </main>
+{% endblock %}
