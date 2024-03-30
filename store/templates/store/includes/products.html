@@ -1,9 +1,8 @@
-{% load static %}
 
 <li>
     <article class="product">
         <a href="{{ product.get_absolute_url }}">
-            <img src="{% static "store/images/"|add:product.image %}" alt="{{ product.product_name }}">
+            <img src="{{ product.image.url }}" alt="{{ product.product_name }}">
             <div class="product__content">
                 <h3>{{ product.product_name }}</h3>
                 <p>{{ product.price }}</p>
