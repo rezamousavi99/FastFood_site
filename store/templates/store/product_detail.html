@@ -26,4 +26,19 @@
     <main>
         {{ product.Description|linebreaks }}
     </main>
+    
+    <section id="comment-form">
+        <form action="{% url "product-detail" product.slug %}" method="POST">
+            {% csrf_token %}
+            {% for field in comment_form %}
+                <div>
+                    {{ field.label_tag }}
+                    {{ field }}
+                    {{ field.errors }}
+                </div>
+            {% endfor %}
+            <button>Submit</button>
+        </form>
+    </section>
+    
 {% endblock %}
