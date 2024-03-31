@@ -31,7 +31,7 @@
         <form action="{% url "product-detail" product.slug %}" method="POST">
             {% csrf_token %}
             {% for field in comment_form %}
-                <div>
+                <div class="form-control">
                     {{ field.label_tag }}
                     {{ field }}
                     {{ field.errors }}
