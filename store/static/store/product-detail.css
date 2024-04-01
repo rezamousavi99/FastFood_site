@@ -120,3 +120,40 @@ body {
     background-color: #4f0ba7;
     border-color: #4f0ba7;
   }
+
+  .errors label{
+    color: #940000;
+  }
+
+  .errors input{
+    background-color: #ffc8c8;
+    border-color: #940000;
+  }
+
+  .errorlist {
+    list-style: none;
+    color: #940000;
+    font-weight: bold;
+    padding-left: 0;
+    margin: 0.5rem 0;
+  }
+
+  #alert {
+    width: 90%;
+    max-width: 90rem;
+    margin: 8rem auto 3rem auto;
+    border: 2px solid #940000;
+    border-radius: 12px;
+    background-color: #ffc8c8;
+    color: #940000;
+    padding: 1rem;
+  }
+
+  #alert a{
+    text-decoration: none;
+    border: 2px solid #940000;
+    background-color: #940000;
+    padding: 0.25rem 1rem;
+    border-radius: 6px;
+    color: white;
+  }

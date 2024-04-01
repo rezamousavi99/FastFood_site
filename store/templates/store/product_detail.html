@@ -10,6 +10,14 @@
 {% endblock %}
 
 {% block content %}
+    {% if comment_form.errors %}
+    	<section id="alert">
+            <h2>Something went wrong during saving your comment</h2>
+            <p>please check comment section below</p>
+            <a href="#comment-form">Fix!</a>
+        </section>
+    {% endif %} 
+    
 	<section id="summary">
         <h2>{{ product.product_name }}</h2>
         <div>
@@ -31,7 +39,7 @@
         <form action="{% url "product-detail" product.slug %}" method="POST">
             {% csrf_token %}
             {% for field in comment_form %}
-                <div class="form-control">
+                <div class="form-control {% if field.errors %}errors{% endif %}">
                     {{ field.label_tag }}
                     {{ field }}
                     {{ field.errors }}
