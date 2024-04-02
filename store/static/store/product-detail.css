@@ -157,3 +157,24 @@ body {
     border-radius: 6px;
     color: white;
   }
+
+  #shopping-basket {
+    margin: 2rem 0;
+  }
+
+  #shopping-basket button{
+    padding: 0.25rem 1rem;
+    cursor: pointer;
+    border-radius: 6px;
+    background-color: transparent;
+    color: white;
+    border: 1px solid white;
+    font: inherit;
+    font-weight: bold;
+  }
+
+  #shopping-basket button:hover,
+  #shopping-basket button:active{
+    background-color: white;
+    color: #5706c0;
+  }

@@ -76,12 +76,20 @@ class ProductsView(ListView):
 #         return product_context
 
 class ProductDetailView(View):
+    def is_stored_product(self, request, product):
+        data = request.session.get("basket")
+        if product.id in data:
+            return True
+        return False
+
     def get(self, request, slug):
         product = Products.objects.get(slug=slug)
+
         context = {
             "product": product,
             "product_tags": product.tags.all(),
-            "comment_form": CommentForm()
+            "comment_form": CommentForm(),
+            "is_stored_product": self.is_stored_product(request, product)
         }
         return render(request, "store/product_detail.html", context)
 
@@ -97,7 +105,39 @@ class ProductDetailView(View):
         context = {
             "product": product,
             "product_tags": product.tags.all(),
-            "comment_form": form
+            "comment_form": form,
+            "is_stored_product": self.is_stored_product(request, product)
         }
         return render(request, "store/product_detail.html", context)
 
+
+class ShoppingBasketView(View):
+    def get(self, request):
+        stored_products = request.session.get("basket")
+
+        context = {}
+        if stored_products is None or len(stored_products) == 0:
+            context["has_products"] = False
+            context["products"] = []
+        else:
+            products = Products.objects.filter(id__in=stored_products)
+            context["has_products"] = True
+            context["products"] = products
+
+        return render(request, "store/shopping_basket.html", context)
+
+    def post(self, request):
+        stored_products = request.session.get("basket")
+
+        product_id = int(request.POST["product_id"])
+        if stored_products is None:
+            stored_products = []
+
+        if product_id not in stored_products:
+            stored_products.append(product_id)
+        else:
+            stored_products.remove(product_id)
+
+        request.session["basket"] = stored_products
+
+        return HttpResponseRedirect("/")

@@ -30,6 +30,21 @@
             <img src="{{ product.image.url }}" alt="{{ product.product_name }} image">
         </article>
 
+        <div id="shopping-basket">
+            <form action="{% url "shopping-basket" %}" method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="product_id" value="{{ product.id }}">
+                <button>
+                    {% if is_stored_product %}
+                	    remove from shopping basket
+                    {% else %}
+                        add to shopping basket
+                    {% endif %} 
+                </button>
+
+            </form>
+        </div>
+
     </section>
     <main>
         {{ product.Description|linebreaks }}
