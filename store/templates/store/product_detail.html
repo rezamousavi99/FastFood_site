@@ -10,6 +10,14 @@
 {% endblock %}
 
 {% block content %}
+    {% if comment_form.errors %}
+    	<section id="alert">
+            <h2>Something went wrong during saving your comment</h2>
+            <p>please check comment section below</p>
+            <a href="#comment-form">Fix!</a>
+        </section>
+    {% endif %} 
+    
 	<section id="summary">
         <h2>{{ product.product_name }}</h2>
         <div>
@@ -22,8 +30,51 @@
             <img src="{{ product.image.url }}" alt="{{ product.product_name }} image">
         </article>
 
+        <div id="shopping-basket">
+            <form action="{% url "shopping-basket" %}" method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="product_id" value="{{ product.id }}">
+                <button>
+                    {% if is_stored_product %}
+                	    remove from shopping basket
+                    {% else %}
+                        add to shopping basket
+                    {% endif %} 
+                </button>
+
+            </form>
+        </div>
+
     </section>
     <main>
         {{ product.Description|linebreaks }}
     </main>
+
+    {% if comments %}
+        <section id="comments">
+            <ul>
+                {% for comment in comments %}
+                    <li>
+                        <h2>{{ comment.user_name }}</h2>
+                        <p>{{ comment.text|linebreaks }}</p>
+                    </li>
+                {% endfor %}
+            </ul>
+        </section>
+    {% endif %}
+    
+    <section id="comment-form">
+        <form action="{% url "product-detail" product.slug %}" method="POST">
+            {% csrf_token %}
+            {% for field in comment_form %}
+                <div class="form-control {% if field.errors %}errors{% endif %}">
+                    {{ field.label_tag }}
+                    {{ field }}
+                    {{ field.errors }}
+                </div>
+            {% endfor %}
+            <button>Submit</button>
+        </form>
+    </section>
+    
 {% endblock %}

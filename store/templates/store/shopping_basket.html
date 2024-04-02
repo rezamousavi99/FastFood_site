@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+	Shopping Basket
+{% endblock %}
+
+{% block css_files %}
+    <link rel="stylesheet" href="{% static "store/shopping_basket.css" %}">
+{% endblock %}
+
+{% block content %}
+	<section id="stored-product-list">
+        {% if has_products %}
+        <ul>
+            {% for product in products %}
+                <li>
+                    <a href="{% url "product-detail" product.slug %}">{{ product.product_name }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+            <p>There is no product here!</p>
+        {% endif %}
+    </section>
+{% endblock %}

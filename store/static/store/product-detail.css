@@ -73,3 +73,136 @@ body {
     padding: 0.5rem 1rem;
     border-radius: 8px;
   }
+
+  #comment-form{
+    margin: 3rem auto;
+    width: 90%;
+    max-width: 40rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+    border-radius: 12px;
+    background-color: white;
+    padding: 1rem;
+  }
+
+
+  .form-control {
+    margin-bottom: 1rem;
+  }
+
+  .form-control label{
+    display: block;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
+
+  .form-control input,
+  .form-control textarea{
+    width: 100%;
+    display: block;
+    border-radius: 6px;
+    padding: 0.25rem;
+    font: inherit;
+    border: 1px solid #ccc;
+  }
+
+  #comment-form button {
+    font: inherit;
+    background-color: #390281;
+    color: white;
+    border: 1px solid #390281;
+    padding: 0.5rem 1.5rem;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+
+  #comment-form button:hover,
+  #comment-form button:active {
+    background-color: #4f0ba7;
+    border-color: #4f0ba7;
+  }
+
+  .errors label{
+    color: #940000;
+  }
+
+  .errors input{
+    background-color: #ffc8c8;
+    border-color: #940000;
+  }
+
+  .errorlist {
+    list-style: none;
+    color: #940000;
+    font-weight: bold;
+    padding-left: 0;
+    margin: 0.5rem 0;
+  }
+
+  #alert {
+    width: 90%;
+    max-width: 90rem;
+    margin: 8rem auto 3rem auto;
+    border: 2px solid #940000;
+    border-radius: 12px;
+    background-color: #ffc8c8;
+    color: #940000;
+    padding: 1rem;
+  }
+
+  #alert a{
+    text-decoration: none;
+    border: 2px solid #940000;
+    background-color: #940000;
+    padding: 0.25rem 1rem;
+    border-radius: 6px;
+    color: white;
+  }
+
+  #shopping-basket {
+    margin: 2rem 0;
+  }
+
+  #shopping-basket button{
+    padding: 0.25rem 1rem;
+    cursor: pointer;
+    border-radius: 6px;
+    background-color: transparent;
+    color: white;
+    border: 1px solid white;
+    font: inherit;
+    font-weight: bold;
+  }
+
+  #shopping-basket button:hover,
+  #shopping-basket button:active{
+    background-color: white;
+    color: #5706c0;
+  }
+
+  #comments {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+    width: 90%;
+    max-width: 60rem;
+    background-color: white;
+    margin: 3rem auto;
+    border-radius: 12px;
+    padding: 1rem 2rem;
+  }
+
+  #comments ul{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  #comments li{
+    border-bottom: 1px solid #606060;
+    margin-bottom: 1rem;
+  }
+
+#comments li:last-of-type{
+  border-bottom: none;
+}
+
+#comments h2{
+  color: #525252;
+}

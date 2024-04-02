@@ -1,9 +1,12 @@
 from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.views import View
 from django.views.generic import ListView, DetailView
-from .models import Products
+from .models import Products, Comments
 from django.utils.text import slugify
+from .forms import CommentForm
+from django.urls import reverse
+
 # Create your views here.
 
 
@@ -61,13 +64,81 @@ class ProductsView(ListView):
 #         })
 
 
-class ProductDetailView(DetailView):
-    template_name = "store/product_detail.html"
-    model = Products
-    context_object_name = "product"
+# class ProductDetailView(DetailView):
+#     template_name = "store/product_detail.html"
+#     model = Products
+#     context_object_name = "product"
+#
+#     def get_context_data(self, **kwargs):
+#         product_context = super().get_context_data()
+#         product_context["product_tags"] = self.object.tags.all()
+#         # product_context["product"] = self.object
+#         return product_context
 
-    def get_context_data(self, **kwargs):
-        product_context = super().get_context_data()
-        product_context["product_tags"] = self.object.tags.all()
-        # product_context["product"] = self.object
-        return product_context
+class ProductDetailView(View):
+    def is_stored_product(self, request, product):
+        data = request.session.get("basket")
+        if product.id in data:
+            return True
+        return False
+
+    def get(self, request, slug):
+        product = Products.objects.get(slug=slug)
+
+        context = {
+            "product": product,
+            "product_tags": product.tags.all(),
+            "comment_form": CommentForm(),
+            "is_stored_product": self.is_stored_product(request, product),
+            "comments": product.comments.all().order_by("-id")
+        }
+        return render(request, "store/product_detail.html", context)
+
+    def post(self, request, slug):
+        form = CommentForm(request.POST)
+        product = Products.objects.get(slug=slug)
+
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.product = product
+            comment.save()
+            return HttpResponseRedirect(reverse("product-detail", args=[slug]))
+        context = {
+            "product": product,
+            "product_tags": product.tags.all(),
+            "comment_form": form,
+            "is_stored_product": self.is_stored_product(request, product)
+        }
+        return render(request, "store/product_detail.html", context)
+
+
+class ShoppingBasketView(View):
+    def get(self, request):
+        stored_products = request.session.get("basket")
+
+        context = {}
+        if stored_products is None or len(stored_products) == 0:
+            context["has_products"] = False
+            context["products"] = []
+        else:
+            products = Products.objects.filter(id__in=stored_products)
+            context["has_products"] = True
+            context["products"] = products
+
+        return render(request, "store/shopping_basket.html", context)
+
+    def post(self, request):
+        stored_products = request.session.get("basket")
+
+        product_id = int(request.POST["product_id"])
+        if stored_products is None:
+            stored_products = []
+
+        if product_id not in stored_products:
+            stored_products.append(product_id)
+        else:
+            stored_products.remove(product_id)
+
+        request.session["basket"] = stored_products
+
+        return HttpResponseRedirect("/")
