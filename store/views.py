@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views import View
 from django.views.generic import ListView, DetailView
-from .models import Products
+from .models import Products, Comments
 from django.utils.text import slugify
 from .forms import CommentForm
 from django.urls import reverse
@@ -89,7 +89,8 @@ class ProductDetailView(View):
             "product": product,
             "product_tags": product.tags.all(),
             "comment_form": CommentForm(),
-            "is_stored_product": self.is_stored_product(request, product)
+            "is_stored_product": self.is_stored_product(request, product),
+            "comments": product.comments.all().order_by("-id")
         }
         return render(request, "store/product_detail.html", context)
 
