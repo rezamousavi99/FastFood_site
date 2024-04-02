@@ -93,3 +93,15 @@ class OrderDetails(models.Model):
     # def save(self, *args, **kwargs):
     #     self.pure_price = get_price(self.product)
     #     super().save(*args, **kwargs)
+
+
+class Comments(models.Model):
+    user_name = models.CharField(max_length=100)
+    user_email = models.EmailField()
+    text = models.TextField(max_length=400)
+    product = models.ForeignKey(Products, on_delete=models.CASCADE , related_name="comments")
+
+    def __str__(self):
+        return f"{self.user_name} - {self.text}"
+    class Meta:
+        verbose_name_plural = "Comments"
